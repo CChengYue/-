@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>周考</title>
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+    <script src="lib/jquery-3.2.1.js"></script>
+    <script src="lib/js/bootstrap.min.js"></script>
+    <script src="js/vue2.min.js"></script>
+    <script src="js/main.js"></script>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #section{
+            height: 500px;
+            margin-top: 80px;
+        }
+        #aside,#center{
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">周考</a>
+        <p class="navbar-text navbar-right">Made By<a href="#" class="navbar-link">CraiG</a></p>
+    </div>
+</nav>
+<section id="section" class="container">
+    <aside id="aside" class="col-md-3">
+        <div class="list-group">
+            <a href="#" class="list-group-item" @click="chang(index)" v-for="(lists, index) in list">{{lists}}</a>
+        </div>
+    </aside>
+    <div id="center" class="col-md-9">
+        <ul class="breadcrumb">
+            <li><a href="#">首页</a> <span class="divider">/</span></li>
+            <li><a href="#">周考</a> <span class="divider">/</span></li>
+        </ul>
+        <div class="panel panel-primary" v-if="type===0">
+            <div class="panel-heading">首页</div>
+            <div class="panel-body">
+                我是首页
+            </div>
+        </div>
+        <div class="panel panel-success" v-else-if="type===1">
+            <div class="panel-heading">菜单1</div>
+            <div class="panel-body">
+                菜单1
+            </div>
+        </div>
+        <div class="panel panel-info" v-else-if="type===2">
+            <div class="panel-heading">菜单2</div>
+            <div class="panel-body">
+                菜单2
+            </div>
+        </div>
+        <div class="panel panel-warning" v-else-if="type===3">
+            <div class="panel-heading">菜单3</div>
+            <div class="panel-body">
+                菜单3
+            </div>
+        </div>
+        <div class="panel panel-danger" v-else-if="type===4">
+            <div class="panel-heading">菜单4</div>
+            <div class="panel-body">
+                菜单4
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#section',
+        data: {
+            list: ['首页', '菜单1', '菜单2', '菜单3', '菜单4'],
+            type: 0
+        },
+        mounted: function () {
+            $('#aside>.list-group>a:first-child').addClass('active')
+        },
+        methods: {
+            chang: function (index) {
+                this.type = index;
+                $('#aside>.list-group>a').eq(index).addClass('active').siblings().removeClass('active')
+            }
+        }
+    })
+</script>
+</html>

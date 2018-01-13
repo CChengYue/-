@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body style="margin: 100px">
+    <input id="btn" type="button" value="提交"/>
+    <ul id="oul"></ul>
+</body>
+</html>
+<script type="text/javascript">
+    window.onload=function(){
+        var oBtn=document.getElementById("btn");   
+        var oUl=document.getElementById("oul");
+        oBtn.onclick =function(){
+            var xhr=null;    
+            try{
+                xhr=new XMLHttpRequest();    
+            }catch(e){
+                xhr=new ActiveXObject('Microsoft.XMLHTTP');
+            }
+            
+            xhr.open('get','1.php?',true);
+            xhr.send(); 
+            
+            xhr.onreadystatechange=function(){
+
+                if(xhr.readyState==4){
+                    if(xhr.status==200){
+                        //alert(xhr.responseText) 
+                        var data=JSON.parse(xhr.responseText);
+                        var html="";
+                        for(var i=0;i<data.length;i++){
+                            html+='<li><a>'+data[i].title+'</a>[<span>'+ data[i].date+'</span>]</li>'   
+                        }
+                        oUl.innerHTML=html;   
+                    }else{
+                        alert("出错了 状态码: "+xhr.status)
+                    }
+                }
+            }
+        }
+    }
+</script>
